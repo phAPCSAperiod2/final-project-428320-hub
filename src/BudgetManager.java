@@ -4,8 +4,8 @@
  * and provides automated financial advice based on spending habits.
  * * <p>Key features include spending warnings, category-based suggestions,
  * and a "debt" carry-over system for overspent months.</p>
- * * @author YourName
- * @version 1.0
+ * * @author Allison ly
+ * @Collaborator Gemini, Co-Pilot
  */
 public class BudgetManager {
 
