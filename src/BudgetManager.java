@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code BudgetManager} class serves as a budgeting software.
- * It manages a collection of transactions, calculates spending metrics, and provides
+ * This class serves as a budgeting software.
+ * It manages a collection of transactions, calculates spending, and provides incite
  * automated financial coaching features such as budget alerts and spending suggestions.
- * * <p>A key feature of this manager is the "Overspend Penalty" system, which carries over
+ * * <p>Av key feature of this manager is the "Overspend Penalty" system, which carries over
  * debt from one month to the next to encourage financial discipline.</p>
- * * @author Your Name
- * @version 1.1
+ * * @author Allison Ly
+ * @Collaborator Co-Pilot, ChatGPT, Gemini
  */
 public class BudgetManager {
 
