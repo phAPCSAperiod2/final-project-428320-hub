@@ -1,32 +1,87 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 
 /**
- * This class serves as a budgeting software.
- * It manages a collection of transactions, calculates spending, and provides incite
- * automated financial coaching features such as budget alerts and spending suggestions.
- * * <p>Av key feature of this manager is the "Overspend Penalty" system, which carries over
- * debt from one month to the next to encourage financial discipline.</p>
- * * @author Allison Ly
- * @Collaborator Co-Pilot, ChatGPT, Gemini
+ * Manages a collection of financial transactions.
+ * Provides methods to add, remove, and analyze transactions.
  */
 public class BudgetManager {
 
-    /** A list to store all transaction records for the current period. */
     private List<Transaction> transactions;
 
-    /** The target maximum spending amount for the month. */
-    private double monthlyGoal;
-
-    /** The amount exceeded in the previous month, to be deducted from the current limit. */
-    private double overspendDebt;
+    /**
+     * Constructs a BudgetManager with an empty transaction list.
+     */
+    public BudgetManager() {
+        transactions = new ArrayList<>();
+    }
 
     /**
-     * Constructs a new {@code BudgetManager} with a specified spending target.
-     * * @param initialGoal The maximum amount the user intends to spend monthly.
+     * Adds a transaction.
      */
-    public BudgetManager(double initialGoal) {
-        this.transactions = new ArrayList<>();
-        this.monthlyGoal = initialGoal;
-        this.overspendDebt = 0.0;
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
     }
+
+    /**
+     * Removes a transaction.
+     */
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
+    }
+
+    /**
+     * Gets all transactions.
+     */
+    public List<Transaction> getAllTransactions() {
+        return transactions;
+    }
+
+    /**
+     * Calculates total balance (income - expenses).
+     */
+    public double getBalance() {
+        double total = 0;
+        for (Transaction t : transactions) {
+            total += t.getAmount();
+        }
+        return total;
+    }
+
+    /**
+     * Gets total for a specific category.
+     */
+    public double getTotalByCategory(Category category) {
+        double total = 0;
+        for (Transaction t : transactions) {
+            if (t.getCategory() == category) {
+                total += t.getAmount();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Gets transactions for a specific date.
+     */
+    public List<Transaction> getTransactionsByDate(LocalDate date) {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getDate().equals(date)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Prints all transactions.
+     */
+    public void printAllTransactions() {
+        for (Transaction t : transactions) {
+            System.out.println(t);
+        }
+    }
+}
