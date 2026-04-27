@@ -2,7 +2,6 @@
   // === AI & Inline Suggestions (Classroom policy) ===
   "github.copilot.inlineSuggest.enable": false,
   "editor.inlineSuggest.enabled": false,
-
   // === Editor ergonomics ===
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
@@ -10,23 +9,25 @@
   "editor.insertSpaces": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-
   // Keep the UI calm for beginners: show problems but don't block them
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-
   // === Java (AP CSA friendly) ===
   // Use the Java language server and enable hints that help explain code
   "java.inlayHints.parameterNames.enabled": "literals",
-  "java.inlayHints.parameterNames.exclusions": [ "println" ],
+  "java.inlayHints.parameterNames.exclusions": [
+    "println"
+  ],
   "java.configuration.runtimes": [
-    { "name": "JavaSE-17", "path": "/usr/lib/jvm/msopenjdk-17" }
+    {
+      "name": "JavaSE-11",
+      "path": "/opt/java/11.0.14"
+    }
   ],
   "java.format.settings.url": "eclipse-formatter.xml",
   "java.format.settings.profile": "GoogleStyle",
   "java.saveActions.organizeImports": true,
-
   // Test discovery & default test runner
   "java.test.config": [
     {
@@ -37,12 +38,10 @@
     }
   ],
   "java.test.defaultConfig": "JUnit (Default)",
-
   // === Problems & validation ===
   "problems.showCurrentInStatus": true,
   "java.errors.incompleteClasspath.severity": "warning",
   "java.compile.nullAnalysis.mode": "automatic",
-
   // === Files students should focus on ===
   "files.exclude": {
     "**/.classpath": true,

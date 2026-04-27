@@ -84,4 +84,26 @@ public class BudgetManager {
             System.out.println(t);
         }
     }
+
+    /**
+     * Demo entry point for budget tracking.
+     */
+    public static void main(String[] args) {
+        BudgetManager manager = new BudgetManager();
+        Budget budget = new Budget(1000);
+
+        manager.addTransaction(new Transaction(75.50, Category.FORMAT, "Groceries", LocalDate.of(2026, 4, 20)));
+        manager.addTransaction(new Transaction(120.00, Category.DISPLAY, "Utilities", LocalDate.of(2026, 4, 15)));
+        manager.addTransaction(new Transaction(200.00, Category.DISPLAY, "Car payment", LocalDate.of(2026, 4, 10)));
+
+        System.out.println("Transactions:");
+        manager.printAllTransactions();
+
+        double spending = Math.abs(manager.getBalance());
+        System.out.println("\nTotal spending: $" + spending);
+        System.out.println("Balance: $" + manager.getBalance());
+        System.out.println("Near limit: " + budget.isNearLimit(spending));
+        System.out.println("Exceeded: " + budget.isExceeded(spending));
+        System.out.println("Next month budget: $" + budget.calculateNextMonthBudget(spending));
+    }
 }
