@@ -1,11 +1,16 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
+import java.util.Scanner;
 
 /**
  * Manages a collection of financial transactions.
- * Provides methods to add, remove, and analyze transactions.
+ * Provides methods to add, remove, filter, and analyze spending.
+ *
+ * This class works with Budget and Transaction to create
+ * a complete budgeting system.
+ * @Author Allison Ly
+ * @Collaborator Co-Pilot, ChatGPT
  */
 public class BudgetManager {
 
@@ -19,44 +24,42 @@ public class BudgetManager {
     }
 
     /**
-     * Adds a transaction.
+     * Adds a new transaction to the list.
+     *
+     * @param transaction the transaction to add
      */
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
 
     /**
-     * Removes a transaction.
+     * Removes a transaction from the list.
+     *
+     * @param transaction the transaction to remove
      */
     public void removeTransaction(Transaction transaction) {
         transactions.remove(transaction);
     }
 
     /**
-     * Gets all transactions.
+     * Returns all stored transactions.
+     *
+     * @return a list of all transactions
      */
     public List<Transaction> getAllTransactions() {
         return transactions;
     }
 
     /**
-     * Calculates total balance (income - expenses).
+     * Calculates the total spending for the month.
+     * Only positive amounts are counted as expenses.
+     *
+     * @return the total amount spent
      */
-    public double getBalance() {
+    public double getTotalSpending() {
         double total = 0;
         for (Transaction t : transactions) {
-            total += t.getAmount();
-        }
-        return total;
-    }
-
-    /**
-     * Gets total for a specific category.
-     */
-    public double getTotalByCategory(Category category) {
-        double total = 0;
-        for (Transaction t : transactions) {
-            if (t.getCategory() == category) {
+            if (t.getAmount() > 0) {
                 total += t.getAmount();
             }
         }
@@ -64,20 +67,7 @@ public class BudgetManager {
     }
 
     /**
-     * Gets transactions for a specific date.
-     */
-    public List<Transaction> getTransactionsByDate(LocalDate date) {
-        List<Transaction> result = new ArrayList<>();
-        for (Transaction t : transactions) {
-            if (t.getDate().equals(date)) {
-                result.add(t);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Prints all transactions.
+     * Prints all transactions to the console.
      */
     public void printAllTransactions() {
         for (Transaction t : transactions) {
@@ -86,24 +76,60 @@ public class BudgetManager {
     }
 
     /**
-     * Demo entry point for budget tracking.
+     * Allows the user to enter transactions interactively.
+     * The user can enter multiple transactions until they type "done".
      */
     public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
         BudgetManager manager = new BudgetManager();
-        Budget budget = new Budget(1000);
 
-        manager.addTransaction(new Transaction(75.50, Category.FORMAT, "Groceries", LocalDate.of(2026, 4, 20)));
-        manager.addTransaction(new Transaction(120.00, Category.DISPLAY, "Utilities", LocalDate.of(2026, 4, 15)));
-        manager.addTransaction(new Transaction(200.00, Category.DISPLAY, "Car payment", LocalDate.of(2026, 4, 10)));
+        System.out.print("Enter your monthly budget limit: ");
+        double limit = input.nextDouble();
+        input.nextLine(); // clear buffer
 
-        System.out.println("Transactions:");
+        Budget budget = new Budget(limit);
+
+        System.out.println("\nEnter your transactions.");
+        System.out.println("Type 'done' at any time to finish.\n");
+
+        while (true) {
+            System.out.print("Amount: ");
+            String amountStr = input.nextLine();
+
+            if (amountStr.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            double amount = Double.parseDouble(amountStr);
+
+            System.out.println("Choose a category:");
+            for (Category c : Category.values()) {
+                System.out.println("- " + c);
+            }
+            System.out.print("Category: ");
+            Category category = Category.valueOf(input.nextLine().toUpperCase());
+
+            System.out.print("Description: ");
+            String description = input.nextLine();
+
+            System.out.print("Date (YYYY-MM-DD): ");
+            LocalDate date = LocalDate.parse(input.nextLine());
+
+            manager.addTransaction(new Transaction(amount, category, description, date));
+
+            System.out.println("Transaction added.\n");
+        }
+
+        System.out.println("\nAll Transactions:");
         manager.printAllTransactions();
 
-        double spending = Math.abs(manager.getBalance());
+        double spending = manager.getTotalSpending();
         System.out.println("\nTotal spending: $" + spending);
-        System.out.println("Balance: $" + manager.getBalance());
         System.out.println("Near limit: " + budget.isNearLimit(spending));
         System.out.println("Exceeded: " + budget.isExceeded(spending));
         System.out.println("Next month budget: $" + budget.calculateNextMonthBudget(spending));
+
+        input.close();
     }
 }

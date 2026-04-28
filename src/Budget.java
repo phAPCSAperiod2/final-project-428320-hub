@@ -1,19 +1,18 @@
 /**
- * Represents a monthly budget and provides methods
- * to evaluate user-entered spending from BudgetManager.
+ * Represents a monthly budget and provides methods to evaluate
+ * user spending and calculate adjustments for the next month.
  *
- * This class is used alongside BudgetManager, which collects
- * transaction data from user input.
- *
- * @author Allison Ly
- * @Collaborator ChatGPT
+ *This class works with BudgetManager to determine whether
+ * spending is near or exceeds the user's monthly limit.
+ * @Author Allison Ly
+ * @Collaborator Co-Pilot, ChatGPT
  */
 public class Budget {
 
     private double monthlyLimit;
 
     /**
-     * Constructs a Budget with a specified monthly limit.
+     * Constructs a Budget with a specified monthly spending limit.
      *
      * @param monthlyLimit the maximum amount the user can spend per month
      */
@@ -21,11 +20,7 @@ public class Budget {
         this.monthlyLimit = monthlyLimit;
     }
 
-    /**
-     * Returns the current monthly budget limit.
-     *
-     * @return the user's monthly spending limit
-     */
+    /** @return the user's monthly spending limit */
     public double getMonthlyLimit() {
         return monthlyLimit;
     }
@@ -40,21 +35,21 @@ public class Budget {
     }
 
     /**
-     * Checks whether user spending is close to the budget limit.
-     * "Near limit" is defined as 80% or more of the budget.
+     * Determines whether spending is close to the budget limit.
+     * "Near limit" is defined as 80% or more of the monthly limit.
      *
-     * @param spending total spending calculated from BudgetManager transactions
-     * @return true if spending is at least 80% of the budget, false otherwise
+     * @param spending the total spending for the month
+     * @return true if spending is at least 80% of the limit
      */
     public boolean isNearLimit(double spending) {
         return spending >= monthlyLimit * 0.8;
     }
 
     /**
-     * Checks whether user spending has exceeded the budget limit.
+     * Determines whether spending has exceeded the budget limit.
      *
-     * @param spending total spending calculated from BudgetManager transactions
-     * @return true if spending is greater than the budget limit
+     * @param spending the total spending for the month
+     * @return true if spending is greater than the monthly limit
      */
     public boolean isExceeded(double spending) {
         return spending > monthlyLimit;
@@ -62,15 +57,16 @@ public class Budget {
 
     /**
      * Calculates the next month's budget based on current spending.
-     * If overspending occurs, the excess is subtracted from next month's budget.
+     * If the user overspent, the excess amount is subtracted from
+     * next month's budget. The result will never be negative.
      *
-     * @param spending total spending from BudgetManager
-     * @return adjusted budget for the next month
+     * @param spending the total spending for the current month
+     * @return the adjusted budget for the next month
      */
     public double calculateNextMonthBudget(double spending) {
         if (spending > monthlyLimit) {
             double difference = spending - monthlyLimit;
-            return monthlyLimit - difference;
+            return Math.max(0, monthlyLimit - difference);
         }
         return monthlyLimit;
     }

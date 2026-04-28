@@ -1,16 +1,13 @@
 import java.time.LocalDate;
-import java.util.Locale.Category;
 
 /**
- * Represents a single financial transaction.
- * Each transaction records the amount, category, description, and date
- * of a financial activity such as a purchase or income entry.
+ * Represents transactions.
+ * A transaction includes an amount, category, description, and date.
  *
- * <p>This class acts as a data container used by the BudgetManager
- * to track and analyze spending patterns.</p>
- *
- * @author Allison Ly
- * @Collaborator ChatGPT
+ * This class is used by BudgetManager to track and analyze
+ * spending patterns across different categories and dates.
+ * @Author Allison Ly
+ * @Collaborator Co-Pilot, ChatGPT
  */
 public class Transaction {
 
@@ -22,9 +19,9 @@ public class Transaction {
     /**
      * Constructs a Transaction object.
      *
-     * @param amount the monetary value of the transaction
-     * @param category the category of the transaction
-     * @param description a brief description of the transaction
+     * @param amount the monetary value of the transaction (positive for expenses)
+     * @param category the spending category of the transaction
+     * @param description a short description of the transaction
      * @param date the date the transaction occurred
      */
     public Transaction(double amount, Category category, String description, LocalDate date) {
@@ -34,46 +31,30 @@ public class Transaction {
         this.date = date;
     }
 
-    /**
-     * Gets the transaction amount.
-     *
-     * @return the amount of the transaction
-     */
+    /** @return the amount spent */
     public double getAmount() {
         return amount;
     }
 
-    /**
-     * Gets the transaction category.
-     *
-     * @return the category of the transaction
-     */
+    /** @return the category of the transaction */
     public Category getCategory() {
         return category;
     }
 
-    /**
-     * Gets the transaction description.
-     *
-     * @return the description of the transaction
-     */
+    /** @return the description of the transaction */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Gets the transaction date.
-     *
-     * @return the date of the transaction
-     */
+    /** @return the date the transaction occurred */
     public LocalDate getDate() {
         return date;
     }
 
     /**
-     * Returns a string representation of the transaction.
+     * Returns a formatted string representation of the transaction.
      *
-     * @return a formatted string containing the date, category, amount, and description
+     * @return a string containing the date, category, amount, and description
      */
     @Override
     public String toString() {
