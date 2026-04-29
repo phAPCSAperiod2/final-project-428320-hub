@@ -7,8 +7,9 @@ import java.util.Scanner;
  * Manages a collection of financial transactions.
  * Provides methods to add, remove, filter, and analyze spending.
  *
- * This class works with Budget and Transaction to create
- * a complete budgeting system.
+ * This class works with Budget, Transaction, and ReportGenerator
+ * to create a complete budgeting system.
+ *
  * @Author Allison Ly
  * @Collaborator Co-Pilot, ChatGPT
  */
@@ -129,6 +130,27 @@ public class BudgetManager {
         System.out.println("Near limit: " + budget.isNearLimit(spending));
         System.out.println("Exceeded: " + budget.isExceeded(spending));
         System.out.println("Next month budget: $" + budget.calculateNextMonthBudget(spending));
+
+        // ---------------------------------------------------------
+        // NEW REPORTING SECTION USING ReportGenerator
+        // ---------------------------------------------------------
+        ReportGenerator report = new ReportGenerator(manager.getAllTransactions());
+
+        System.out.println("\n===== REPORTS =====");
+
+        System.out.println("\nSpending by Category:");
+        report.getSpendingByCategory().forEach((cat, total) ->
+                System.out.println(cat + ": $" + total));
+
+        System.out.println("\nHighest Transaction:");
+        Transaction highest = report.getHighestTransaction();
+        if (highest != null) {
+            System.out.println(highest);
+        } else {
+            System.out.println("No transactions recorded.");
+        }
+
+        System.out.println("\nAverage Transaction Amount: $" + report.getAverageTransaction());
 
         input.close();
     }
