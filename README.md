@@ -5,6 +5,7 @@
 ---
 
 ## Project Overview
+
 BudgetTracker is a personal finance application that helps users track monthly spending, categorize transactions, and analyze their financial habits.
 It provides a simple, structured way to enter expenses, view summaries, and understand where money is going each month.
 
@@ -98,43 +99,21 @@ Analyzes transactions and produces:
 - Results are printed to the interface.
 
 
-
-
-## 🔹 Project Title
-
-## 🔹 What This Software Does
-Explain your project in plain language.
-
-## 🔹 Who It’s For
-Describe the user and the problem being solved.
-
-## 🔹 How to Run the Program
-Clear steps so someone else can run your project.
-
-## 🔹 Technical Overview
-Brief description of:
-- Main classes
-- Key data structures
-- Program logic
-
-## 🔹 Class Diagram
-Include or link your final class diagram.
-
-## 🔹 Known Limitations / Future Improvements
-What works well, and what you would improve with more time.
+---
+## Class Diagram: https://docs.google.com/presentation/d/1T0IAm-kOLw-gq3-xEJ4m9mICW1EK-kciJq-OXNxrlCQ/edit?usp=sharing
 
 ---
 
-## 🎯 Final Reminder
+## Known Limitations / Future Improvements:
+Limitations:
+-  all transactions disappear when the program closes, since everything is stored only in memory.
+-  requires users to type category names exactly as written, which can easily cause input errors.
+-  invalid numbers, dates, or category names to crash the program.
+- No income tracking prevents users from recording money earned, so the system only tracks expenses.
 
-This repository represents **you as a developer**.
+Future Improvements:
+- Expanding the category system would allow users to create custom categories instead of relying on fixed enums.
+- Introducing income and balance tracking would let users see both spending and earnings for a complete financial picture.
 
-Take pride in:
-- Your process
-- Your commits
-- Your code
-- Your documentation
+---
 
-Build something real.
-Build it thoughtfully.
-Build it well.
